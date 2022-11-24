@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all meetings</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .meetings {
+            border: 1px solid steelblue;
+            width: 600px;
+            border-collapse: collapse;
+        }
+
+        .meetings tr td, th {
+            padding: 5px;
+            border: 1px solid steelblue;
+        }
+
+        .meetings ul {
+            margin: 1px;
+            padding-left: 2px;
+        }
+
+        .meetings td:last-child, td:first-child {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<h3>Meetings:</h3>
+
+
+<form id="search-word-form" action="save.html" th:method="get" th:action="@{/all/approved/search/{searchWord}(searchWord=${searchWord})}">
+
+    <div class="row">
+        <label for="search-input">Search: </label>
+        <input id="search-input" name="searchWord" type="text" value="football" th:value="${searchWord}"/>
+        <button type="submit">ok</button>
+    </div>
+
+</form>
+<br>
+
+<form id="search-date-form" action="save.html" th:method="get" th:action="@{/all/approved/(searchDate=${searchDate})}">
+
+    <div class="row">
+        <label for="search-date-input">Search date: </label>
+        <input id="search-date-input" name="searchDate" type="date" value="2022-02-02" th:value="${searchWord}"/>
+        <button type="submit">ok</button>
+    </div>
+
+</form>
+<br>
+
+
+<table class="meetings">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meeting : ${meetings}">
+        <td th:text="${meeting.id}">1</td>
+        <td th:text="${meeting.title}">Football game</td>
+        <td th:text="${meeting.description}">Let's play football together!</td>
+        <td th:text="${meeting.date}">2022-10-05</td>
+
+        <td>
+            <a href="details.html" th:href="@{/details/join/{id}(id=${meeting.id})}">details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+
+<div>
+    <button type="button" >
+        <a th:href="@{/start}"><button type="button">Back</button></a>
+    </button>
+</div>
+
+</body>
+</html>
