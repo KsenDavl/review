@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/otus?meeting
+    username: postgres
+    password: postgres
+    hikari:
+      schema: meeting
+
+  liquibase:
+    change-log: "classpath:db/changelog-master.xml"
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/otus?current_schema=meeting
+    password: postgres
+    user: postgres
+    driver-class-name: org.postgresql.Driver
+    default-schema: meeting
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: meetingservicepetproject@gmail.com
+    password: tumrzgchxcbrgxop
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true

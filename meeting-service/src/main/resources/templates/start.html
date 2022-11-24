@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+<h1>Welcome to our meeting service!</h1>
+<br>
+<h3>Want to get to know your colleagues or share some work experience? Join the meeting!</h3>
+
+<div class="row">
+    <a th:href="@{/all/approved}"><button type="button">Join a meeting</button></a>
+    <a th:href="@{/save}"><button type="button">Create your own meeting!</button></a>
+    <a th:href="@{/admin}"><button type="button">I'm an admin!</button></a>
+    <a th:href="@{/logout}"><button type="button">log out!</button></a>
+</div>
+
+<br>
+<br>
+<h3>Meetings you've already joined:</h3>
+
+<div th:if="${#lists.isEmpty(meetings)}">
+    <p>No meetings yet</p>
+</div>
+
+<table class="meetings" th:if="${not #lists.isEmpty(meetings)}">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meeting : ${meetings}">
+        <td th:text="${meeting.id}">1</td>
+        <td th:text="${meeting.title}">Football game</td>
+        <td th:text="${meeting.description}">Let's play football together!</td>
+
+        <td>
+            <a href="details.html" th:href="@{/details/{id}(id=${meeting.id})}">details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+
+<h3>Meetings you've organized:</h3>
+
+<div th:if="${#lists.isEmpty(orgMeetings)}">
+    <p>No meetings yet</p>
+</div>
+
+<table class="meetings" th:if="${not #lists.isEmpty(orgMeetings)}">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orgMeeting : ${orgMeetings}">
+        <td th:text="${orgMeeting.id}">1</td>
+        <td th:text="${orgMeeting.title}">Football game</td>
+        <td th:text="${orgMeeting.description}">Let's play football together!</td>
+        <td th:text="${orgMeeting.status}">1</td>
+
+        <td>
+            <a href="start.html" th:href="@{/cancel/request/{id}(id=${orgMeeting.id})}">cancel</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<style type="text/css">
+    body {
+        padding: 50px;
+    }
+
+    .meetings {
+        border: 1px solid steelblue;
+        width: 600px;
+        border-collapse: collapse;
+    }
+
+    .meetings tr td, th {
+        padding: 5px;
+        border: 1px solid steelblue;
+    }
+
+    .meetings ul {
+        margin: 1px;
+        padding-left: 2px;
+    }
+
+    .meetings td:last-child, td:first-child {
+        width: 50px;
+    }
+</style>
+
+</body>
+</html>
